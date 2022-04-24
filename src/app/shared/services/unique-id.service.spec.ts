@@ -23,7 +23,7 @@ describe(UniqueIdService.name, () => {
     expect(ids.size).toBe(50);
   });
 
-  it(`#${UniqueIdService.prototype.getNumberOfGeneratedUniqueIds}
+  it(`#${UniqueIdService.prototype.getNumberOfGeneratedUniqueIds.name}
       should return number of IDs when called`, () => {
     service.generatedUniqueIdWithPrefix('app-');
     service.generatedUniqueIdWithPrefix('app-');

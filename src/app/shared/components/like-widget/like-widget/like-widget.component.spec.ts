@@ -16,7 +16,20 @@ describe(LikeWidgetComponent.name, () => {
   });
 
   it('Should create component', () => {
-    const instance = fixture.componentInstance;
-    expect(instance).toBeInstanceOf(LikeWidgetComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeInstanceOf(LikeWidgetComponent);
   });
+
+  it(`#${LikeWidgetComponent.prototype.ngOnInit.name} should auto generate ID when id input property is missing`, () => {
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(component.id).toBeTruthy();
+  });
+
+  it(`#${LikeWidgetComponent.prototype.ngOnInit.name} should not auto generate ID when id input property is not missing`, () => {
+    const component = fixture.componentInstance;
+    component.id = 'someId'
+    fixture.detectChanges();
+    expect(component.id.startsWith('someId')).toBeTrue();
+  })
 });

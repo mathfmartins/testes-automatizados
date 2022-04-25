@@ -6,30 +6,40 @@ import { LikeWidgetComponent } from './like-widget.component';
 
 describe(LikeWidgetComponent.name, () => {
   let fixture: ComponentFixture<LikeWidgetComponent> = null;
+  let component: LikeWidgetComponent = null;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LikeWidgetModule]
+      imports: [LikeWidgetModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LikeWidgetComponent);
+    component = fixture.componentInstance;
   });
 
   it('Should create component', () => {
-    const component = fixture.componentInstance;
     expect(component).toBeInstanceOf(LikeWidgetComponent);
   });
 
-  it(`#${LikeWidgetComponent.prototype.ngOnInit.name} should auto generate ID when id input property is missing`, () => {
-    const component = fixture.componentInstance;
+  it(`Should auto generate ID when id input property is missing`, () => {
     fixture.detectChanges();
     expect(component.id).toBeTruthy();
   });
 
-  it(`#${LikeWidgetComponent.prototype.ngOnInit.name} should not auto generate ID when id input property is not missing`, () => {
-    const component = fixture.componentInstance;
-    component.id = 'someId'
+  it(`Should NOT auto generate ID when id input property is not missing`, () => {
+    const someId = 'someId';
+    component.id = someId;
     fixture.detectChanges();
-    expect(component.id.startsWith('someId')).toBeTrue();
-  })
+    expect(component.id).toBe(someId);
+  });
+
+  it(`#${LikeWidgetComponent.prototype.like.name} should trigger emission when called`, (done) => {
+    fixture.detectChanges();
+    component.liked.subscribe(() => {
+      expect(true).toBeTrue();
+      done();
+    });
+    component.like();
+  });
+
 });
